@@ -13,15 +13,14 @@ player.on('play', function () {
   console.log('played the video!');
 });
 
-player.on(
-  'timeupdate',
-  _.throttle(e => {
-    const videoPlayerTimeUpdate = JSON.stringify(e.seconds);
+const throttledTimeUpdate = _.throttle(e => {
+  const videoPlayerTimeUpdate = JSON.stringify(e.seconds);
 
-    console.log(videoPlayerTimeUpdate);
-    localStorage.setItem('videoplayer-current-time', videoPlayerTimeUpdate);
-  }, 100)
-);
+  console.log(videoPlayerTimeUpdate);
+  localStorage.setItem('videoplayer-current-time', videoPlayerTimeUpdate);
+}, 100);
+
+player.on('timeupdate', throttledTimeUpdate());
 
 const playbackPosition = localStorage.getItem('videoplayer-current-time');
 
