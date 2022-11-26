@@ -14,5 +14,22 @@ player.getVideoTitle().then(function (title) {
 player.on('timeupdate', e => {
   const videoPlayerTimeUpdate = JSON.stringify(e.seconds);
 
+  player
+    .setCurrentTime(videoPlayerTimeUpdate)
+    .then(function (seconds) {
+      // seconds = the actual time that the player seeked to
+    })
+    .catch(function (error) {
+      switch (error.name) {
+        case 'RangeError':
+          // the time was less than 0 or greater than the video’s duration
+          break;
+
+        default:
+          // some other error occurred
+          break;
+      }
+    });
+
   localStorage.setItem('videoplayer-current-time', videoPlayerTimeUpdate);
 });
