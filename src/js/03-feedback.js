@@ -33,22 +33,13 @@ const onLoad = key => {
   }
 };
 
-onLoad('feedback-form-state');
-
-const onInput = e => {
-  const {
-    elements: { email, message },
-  } = e.currentTarget;
-
+const onInput = () => {
   const formData = {
-    [email.name]: email.value,
-    [message.name]: message.value,
+    email: emailRef.value,
+    message: textRef.value,
   };
   onSave('feedback-form-state', formData);
 };
-
-// formRef.addEventListener('input', onInput);
-formRef.addEventListener('input', throttle(onInput, 500));
 
 function onClear(firstField, secondField) {
   firstField.value = '';
@@ -72,4 +63,7 @@ const onSubmit = e => {
   onClear(email, message);
 };
 
+onLoad('feedback-form-state');
+
+formRef.addEventListener('input', throttle(onInput, 500));
 formRef.addEventListener('submit', onSubmit);
