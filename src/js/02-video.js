@@ -16,7 +16,7 @@ player.on('play', function () {
 
 player.on(
   'timeupdate',
-  _.throttle(function (e) {
+  throttle(function (e) {
     const updatedPlaybackTime = JSON.stringify(e.seconds);
 
     localStorage.setItem('videoplayer-current-time', updatedPlaybackTime);
